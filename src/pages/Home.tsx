@@ -22,28 +22,6 @@ const btnGold: React.CSSProperties = {
   border: '0.8px solid transparent',
 }
 
-/* ── Reusable sub-components ────────────────────────────────── */
-
-function SectionLabel({ children }: { children: React.ReactNode }) {
-  return (
-    <span className="font-mono text-[11px] text-gold tracking-[0.3em] uppercase">
-      {children}
-    </span>
-  )
-}
-
-function SectionHeading({ children }: { children: React.ReactNode }) {
-  return (
-    <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl text-text leading-tight tracking-wide">
-      {children}
-    </h2>
-  )
-}
-
-function GoldDivider() {
-  return <div className="divider-gold w-full my-16 md:my-24" />
-}
-
 /* ── Service card data ──────────────────────────────────────── */
 
 const services = [
