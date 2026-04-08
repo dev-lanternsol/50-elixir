@@ -124,8 +124,13 @@ export default function Home() {
         <img
           src={treesIllustration}
           alt=""
-          className="absolute bottom-0 right-0 pointer-events-none opacity-30 hidden md:block md:w-[55%] md:max-w-[750px]"
-          style={{ objectFit: 'contain', objectPosition: 'bottom right' }}
+          className="absolute bottom-0 right-0 pointer-events-none hidden md:block md:w-[55%] md:max-w-[750px]"
+          style={{
+            objectFit: 'contain',
+            objectPosition: 'bottom right',
+            maskImage: 'linear-gradient(to bottom, white 60%, transparent 100%)',
+            WebkitMaskImage: 'linear-gradient(to bottom, white 60%, transparent 100%)',
+          }}
         />
         {/* Trees illustration — mobile */}
         <img
