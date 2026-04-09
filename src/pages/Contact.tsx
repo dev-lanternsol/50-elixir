@@ -273,7 +273,7 @@ export default function Contact() {
                   </label>
                   <input
                     type="email"
-                    placeholder="john@example.com"
+                    placeholder="Your email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     disabled={status === 'loading'}
@@ -306,7 +306,7 @@ export default function Contact() {
                 </label>
                 <input
                   type="text"
-                  placeholder="Health Systems Inc."
+                  placeholder="Your organization"
                   value={organization}
                   onChange={(e) => setOrganization(e.target.value)}
                   disabled={status === 'loading'}
