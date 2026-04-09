@@ -1,12 +1,20 @@
 import { Link } from 'react-router-dom'
+import Reveal from '../components/Reveal'
+import SEO from '../components/SEO'
+import SubscribeForm from '../components/SubscribeForm'
+import TypedText, { type TypedSegment } from '../components/TypedText'
 import mountainLines from '../assets/mountain-lines.png'
 import treesIllustration from '../assets/trees-illustration.png'
 import founderPhoto from '../assets/founder.jpg'
 import capitolDome from '../assets/capitol-dome.png'
-import pubThumb1 from '../assets/pub-thumb-1.png'
-import pubThumb2 from '../assets/pub-thumb-2.png'
 import mountainBg from '../assets/mountain-bg.png'
 import treesMobile from '../assets/trees-mobile.png'
+import brandPharmacy from '../assets/brands/pharmacy.png'
+import brandCompanies208 from '../assets/brands/companies208.png'
+import brandCapsule from '../assets/brands/capsule.png'
+import brandHims from '../assets/brands/hims.png'
+import brandBuild from '../assets/brands/build.png'
+import brandCicero from '../assets/brands/cicero.png'
 
 /* ── Shared button style from Figma ─────────────────────────── */
 
@@ -63,22 +71,30 @@ const services = [
   },
 ]
 
-const publications = [
+const media = [
   {
-    tag: 'Regulatory',
-    title: 'Navigating the complexities of 503B compounding regulations.',
-    img: pubThumb1,
+    tag: 'Podcast · DC EKG',
+    title: 'How Pharmacists Can Revolutionize Healthcare',
+    url: 'https://podtail.com/en/podcast/dc-ekg/how-pharmacists-can-revolutionize-healthcare-with-/',
   },
   {
-    tag: 'Infrastructure',
-    title: 'Scale vs. Safety: Building resilient healthcare supply chains.',
-    img: pubThumb2,
+    tag: 'Podcast · RxPOSED',
+    title: 'Over Regulation and Healthcare Policy Problems',
+    url: 'https://open.spotify.com/episode/4B53VCfIRWD3FWW1vfedL7',
   },
   {
-    tag: 'Innovation',
-    title: 'Artificial Intelligence in diagnostics: Beyond the hype.',
-    img: pubThumb1,
+    tag: 'Podcast · Spotify',
+    title: "Blocking Cronyism, Restoring Control: Tim Frost on the REINS Act's Real Power",
+    url: 'https://open.spotify.com/episode/3aDGSpuNoz2IoJv4FPViT1',
   },
+]
+
+/* ── Typed hero heading ─────────────────────────────────────── */
+
+const heroSegments: TypedSegment[] = [
+  { text: 'Strategic Advisory at the Intersection of ' },
+  { text: 'Healthcare', gold: true },
+  { text: ', Manufacturing, and Technology.' },
 ]
 
 /* ── Page ────────────────────────────────────────────────────── */
@@ -86,6 +102,11 @@ const publications = [
 export default function Home() {
   return (
     <div className="overflow-hidden">
+      <SEO
+        title="Strategic Advisory at the Intersection of Healthcare, Manufacturing & Technology"
+        description="50 Elixir is a strategic advisory firm helping healthcare, pharmaceutical, and technology organizations design compliant, scalable operating models and execute growth in complex regulatory environments."
+        path="/"
+      />
       {/* ═══ HERO ═══ */}
       <section className="relative w-full h-[920px] md:h-[758px]">
         {/* Mountain line art */}
@@ -145,7 +166,7 @@ export default function Home() {
           }}
         />
 
-        {/* Heading */}
+        {/* Heading — typed animation */}
         <h1
           className="absolute text-[#E5E2E1] uppercase top-[185px] md:top-[323px] text-[28px] md:text-[clamp(28px,3.3vw,48px)] leading-[32px] md:leading-[48px]"
           style={{
@@ -155,9 +176,15 @@ export default function Home() {
             maxWidth: '1113px',
           }}
         >
-          Strategic Advisory at the Intersection of{' '}
-          <span className="text-[#D2B06B]">Healthcare</span>, Manufacturing,
-          and Technology.
+          {/* Invisible ghost to lock layout height */}
+          <span aria-hidden className="invisible block">
+            Strategic Advisory at the Intersection of{' '}
+            <span>Healthcare</span>, Manufacturing, and Technology.
+          </span>
+          {/* Visible typed text */}
+          <span className="absolute inset-0">
+            <TypedText segments={heroSegments} />
+          </span>
         </h1>
 
         {/* Subtext + CTAs */}
@@ -187,7 +214,7 @@ export default function Home() {
           <div className="flex flex-col md:flex-row items-stretch md:items-start gap-4 md:gap-6 pt-4 w-full md:w-auto">
             <Link
               to="/services"
-              className="flex items-center justify-center text-[#E5E2E1] uppercase hero-btn"
+              className="btn-gold-cta flex items-center justify-center text-[#E5E2E1] uppercase hero-btn"
               style={{
                 ...btnGlass,
                 fontFamily: "'Manrope', sans-serif",
@@ -201,7 +228,7 @@ export default function Home() {
             </Link>
             <Link
               to="/contact"
-              className="flex items-center justify-center text-[#E5E2E1] uppercase hero-btn"
+              className="btn-gold-cta flex items-center justify-center text-[#E5E2E1] uppercase hero-btn"
               style={{
                 ...btnGold,
                 fontFamily: "'Manrope', sans-serif",
@@ -264,15 +291,28 @@ export default function Home() {
           </p>
 
           {/* Scrolling logo carousel — infinite loop */}
-          <div className="overflow-hidden w-full" style={{ height: '60px' }}>
-            <div className="logo-scroll flex items-center" style={{ width: 'max-content' }}>
+          <div className="overflow-hidden w-full" style={{ height: '140px' }}>
+            <div className="logo-scroll flex items-center h-full" style={{ width: 'max-content' }}>
               {[0, 1, 2].map((setIndex) => (
-                <div key={setIndex} className="flex items-center gap-28 pr-28">
-                  <span className="text-[#E5E2E1]/40 text-lg font-bold whitespace-nowrap" style={{ fontFamily: "'Manrope', sans-serif" }}>JAMA &nbsp;|&nbsp; <span className="font-normal">JAMA Network</span></span>
-                  <span className="text-[#E5E2E1]/40 text-sm whitespace-nowrap border border-[#E5E2E1]/20 px-3 py-1" style={{ fontFamily: "'Manrope', sans-serif" }}>Health Affairs</span>
-                  <span className="text-[#E5E2E1]/40 text-lg font-bold whitespace-nowrap" style={{ fontFamily: "'Manrope', sans-serif" }}>AJHP <span className="text-xs font-normal">American Journal of<br/>Health-System Pharmacy</span></span>
-                  <span className="text-[#E5E2E1]/40 text-xs whitespace-nowrap" style={{ fontFamily: "'Manrope', sans-serif" }}>U.S. FOOD &amp; DRUG<br/>ADMINISTRATION</span>
-                  <span className="text-[#E5E2E1]/40 text-2xl italic whitespace-nowrap" style={{ fontFamily: "serif" }}>N</span>
+                <div key={setIndex} className="flex items-center gap-16 pr-16 h-full">
+                  <div className="flex items-center justify-center" style={{ width: '200px', height: '120px' }}>
+                    <img src={brandPharmacy} alt="Pharmacy" className="max-h-full max-w-full object-contain opacity-60" />
+                  </div>
+                  <div className="flex items-center justify-center" style={{ width: '200px', height: '120px' }}>
+                    <img src={brandCompanies208} alt="208 Companies" className="max-h-full max-w-full object-contain opacity-60" />
+                  </div>
+                  <div className="flex items-center justify-center" style={{ width: '200px', height: '120px' }}>
+                    <img src={brandCapsule} alt="Capsule" className="max-h-full max-w-full object-contain opacity-60" />
+                  </div>
+                  <div className="flex items-center justify-center" style={{ width: '200px', height: '120px' }}>
+                    <img src={brandHims} alt="hims" className="max-h-full max-w-full object-contain opacity-60" />
+                  </div>
+                  <div className="flex items-center justify-center" style={{ width: '200px', height: '120px' }}>
+                    <img src={brandBuild} alt="build_" className="max-h-full max-w-full object-contain opacity-60" />
+                  </div>
+                  <div className="flex items-center justify-center" style={{ width: '200px', height: '120px' }}>
+                    <img src={brandCicero} alt="Cicero Institute" className="max-h-full max-w-full object-contain opacity-60" />
+                  </div>
                 </div>
               ))}
             </div>
@@ -358,7 +398,7 @@ export default function Home() {
 
         <div className="relative z-10 w-full max-w-[1395px] mx-auto px-5 md:px-12 flex flex-col md:flex-row justify-end">
           {/* Text */}
-          <div className="w-full md:max-w-[614px] flex flex-col gap-6 md:gap-8">
+          <Reveal className="w-full md:max-w-[614px] flex flex-col gap-6 md:gap-8">
             <h2
               className="text-[#E5E2E1] uppercase text-[26px] md:text-[40px] leading-[30px] md:leading-[40px]"
               style={{
@@ -399,7 +439,7 @@ export default function Home() {
                 </Link>
               </div>
             </div>
-          </div>
+          </Reveal>
         </div>
 
         {/* Capitol dome — mobile: below text, full width, large */}
@@ -420,7 +460,7 @@ export default function Home() {
       <section className="overflow-hidden" style={{ padding: '64px 18px' }}>
         <div className="max-w-[1400px] mx-auto flex flex-col">
           {/* Header — 12-col grid */}
-          <div className="grid grid-cols-12 gap-8 md:gap-12 mb-16">
+          <Reveal className="grid grid-cols-12 gap-8 md:gap-12 mb-16">
             {/* Left: label + heading */}
             <div className="col-span-12 md:col-span-6 flex flex-col gap-6">
               <span
@@ -457,13 +497,14 @@ export default function Home() {
                 Specialized expertise across the highly regulated pillars of the modern healthcare ecosystem.
               </div>
             </div>
-          </div>
+          </Reveal>
 
           {/* Service rows */}
           <div className="flex flex-col">
-            {services.map((s) => (
-              <div
+            {services.map((s, idx) => (
+              <Reveal
                 key={s.num}
+                delay={idx * 120}
                 className="grid grid-cols-12 gap-4 md:gap-8"
                 style={{
                   borderTop: '1px solid rgba(76, 70, 56, 0.2)',
@@ -530,32 +571,38 @@ export default function Home() {
                     {s.tags}
                   </span>
                 </div>
-              </div>
+              </Reveal>
             ))}
 
             {/* Bottom border on last item */}
             <div style={{ borderTop: '1px solid rgba(76, 70, 56, 0.2)' }} />
           </div>
 
-          {/* View Services link */}
-          <div className="flex justify-end mt-6">
+          {/* View Services button */}
+          <div className="flex justify-center md:justify-end mt-10">
             <Link
               to="/services"
-              className="text-[#CDC6B3] font-light"
+              className="btn-gold-cta inline-flex items-center justify-center uppercase text-[#E5E2E1] text-base"
               style={{
                 fontFamily: "'Manrope', sans-serif",
-                fontSize: '16px',
-                lineHeight: '24px',
+                letterSpacing: '0.6px',
+                lineHeight: '16px',
+                height: '48px',
+                padding: '24px 20px',
+                background:
+                  'radial-gradient(14.21% 187.56% at 50% 50%, rgba(233, 232, 230, 0.2), rgba(230, 230, 227, 0.2)) padding-box, linear-gradient(rgba(14, 14, 16, 0.3), rgba(14, 14, 16, 0.3)) padding-box, linear-gradient(90deg, rgba(204, 202, 201, 0.44), rgba(101, 100, 99, 0.44)) border-box',
+                border: '0.8px solid transparent',
+                boxSizing: 'border-box',
               }}
             >
-              View Services →
+              View All Services
             </Link>
           </div>
         </div>
       </section>
 
       {/* ═══ BRANDS THAT TRUST US ═══ */}
-      <section className="mt-12 md:mt-16 text-center">
+      <section className="mt-12 md:mt-16 text-center hidden">
         <p
           className="uppercase text-[#E5E2E1] mb-2"
           style={{
@@ -595,11 +642,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══ RESEARCH & PUBLICATIONS ═══ */}
+      {/* ═══ MEDIA ═══ */}
       <section style={{ padding: '96px 18px' }}>
         <div className="max-w-[1400px] mx-auto">
           {/* Label */}
-          <span
+          <Reveal as="span"
             className="text-[#D2B06B] uppercase block mb-12"
             style={{
               fontFamily: "'Space Mono', monospace",
@@ -608,25 +655,23 @@ export default function Home() {
               lineHeight: '16px',
             }}
           >
-            Research &amp; Publications
-          </span>
+            Media
+          </Reveal>
 
-          {/* 3 cards */}
+          {/* 3 cards — text only, external links */}
           <div className="grid md:grid-cols-3 gap-6">
-            {publications.map((pub) => (
-              <article key={pub.title} className="group flex flex-col">
-                {/* Thumbnail */}
-                <div className="overflow-hidden mb-6" style={{ maxHeight: '202px' }}>
-                  <img
-                    src={pub.img}
-                    alt={pub.title}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-
+            {media.map((item, idx) => (
+              <Reveal key={item.title} delay={idx * 150}>
+              <a
+                href={item.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex flex-col h-full border border-[rgba(210,176,107,0.2)] hover:border-[#D2B06B]/60 transition-colors"
+                style={{ padding: '32px' }}
+              >
                 {/* Tag */}
                 <span
-                  className="text-[#D2B06B] uppercase mb-3"
+                  className="text-[#D2B06B] uppercase mb-4"
                   style={{
                     fontFamily: "'Space Mono', monospace",
                     fontSize: '12px',
@@ -634,24 +679,24 @@ export default function Home() {
                     lineHeight: '16px',
                   }}
                 >
-                  {pub.tag}
+                  {item.tag}
                 </span>
 
                 {/* Title */}
                 <h3
-                  className="text-[#E5E2E1] mb-4"
+                  className="text-[#E5E2E1] mb-6 flex-1"
                   style={{
                     fontFamily: "'OCR A Std', monospace",
                     fontSize: '22px',
                     lineHeight: '30px',
                   }}
                 >
-                  {pub.title}
+                  {item.title}
                 </h3>
 
-                {/* Read more */}
+                {/* Listen */}
                 <span
-                  className="text-[#D2B06B] uppercase"
+                  className="text-[#D2B06B] group-hover:text-[#E8D5A3] uppercase transition-colors"
                   style={{
                     fontFamily: "'Space Mono', monospace",
                     fontSize: '12px',
@@ -659,25 +704,11 @@ export default function Home() {
                     lineHeight: '16px',
                   }}
                 >
-                  READ MORE →
+                  LISTEN →
                 </span>
-              </article>
+              </a>
+              </Reveal>
             ))}
-          </div>
-
-          {/* View Publications link */}
-          <div className="flex justify-end mt-10">
-            <Link
-              to="/services"
-              className="text-[#CDC6B3] font-light"
-              style={{
-                fontFamily: "'Manrope', sans-serif",
-                fontSize: '16px',
-                lineHeight: '24px',
-              }}
-            >
-              View Publications →
-            </Link>
           </div>
         </div>
       </section>
@@ -780,7 +811,7 @@ export default function Home() {
                   </label>
                   <input
                     type="text"
-                    placeholder="John Doe"
+                    placeholder="Your name"
                     className="w-full bg-[#1a1a1c] border border-[rgba(194,162,125,0.4)] px-4 py-3 text-[#E5E2E1] text-sm placeholder:text-[#E5E2E1]/30 focus:border-[#D2B06B]/50 focus:outline-none transition-colors"
                     style={{ fontFamily: "'Manrope', sans-serif" }}
                   />
@@ -899,42 +930,7 @@ export default function Home() {
               </p>
             </div>
 
-            <form
-              className="flex flex-col md:flex-row items-stretch md:items-center gap-4 flex-shrink-0 w-full md:w-auto"
-              onSubmit={(e) => e.preventDefault()}
-            >
-              <div className="w-full md:w-auto">
-                <label
-                  className="block text-[#E5E2E1]/60 uppercase mb-2"
-                  style={{
-                    fontFamily: "'Space Mono', monospace",
-                    fontSize: '11px',
-                    letterSpacing: '2px',
-                  }}
-                >
-                  Email
-                </label>
-                <input
-                  type="email"
-                  placeholder="john@example.com"
-                  className="bg-[#1a1a1c] border border-[rgba(194,162,125,0.4)] px-4 py-3 text-[#E5E2E1] text-sm placeholder:text-[#E5E2E1]/30 focus:border-[#D2B06B]/50 focus:outline-none transition-colors w-full md:w-[240px]"
-                  style={{ fontFamily: "'Manrope', sans-serif" }}
-                />
-              </div>
-              <button
-                type="submit"
-                className="uppercase text-[#E5E2E1] px-8 py-3 w-full md:w-auto md:self-end"
-                style={{
-                  fontFamily: "'Manrope', sans-serif",
-                  fontSize: '14px',
-                  letterSpacing: '2px',
-                  backgroundColor: 'rgba(255,255,255,0.08)',
-                  border: '1px solid rgba(194,162,125,0.4)',
-                }}
-              >
-                Subscribe
-              </button>
-            </form>
+            <SubscribeForm />
             </div>
           </div>
         </div>

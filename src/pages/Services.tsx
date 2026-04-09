@@ -1,3 +1,7 @@
+import Reveal from '../components/Reveal'
+import SEO from '../components/SEO'
+import SubscribeForm from '../components/SubscribeForm'
+import TypedText from '../components/TypedText'
 import mountainContact from '../assets/mountain-contact.png'
 import topoMapBg from '../assets/topo-map-bg.png'
 
@@ -50,24 +54,24 @@ const services = [
   },
   {
     num: '03',
-    category: 'Precision Grid',
+    category: 'Strategic Pillar',
     title: 'Digital Health, AI and Diagnostic Platforms',
     description:
       'Strategic advisory for digital health and artificial intelligence platforms deploying automation in clinical, diagnostic, and administrative workflows.',
     detail:
       'We focus on regulatory risk assessment, FDA device and diagnostic pathways, clinical governance models, and operational integration within healthcare delivery systems.',
-    bordered: true,
+    bordered: false,
     iconType: 'temple' as const,
   },
   {
     num: '04',
-    category: 'Strategic Pillar',
+    category: 'Precision Grid',
     title: 'Executive Strategy, Growth and Risk Navigation',
     description:
       'Executive-level advisory for founders, boards, and leadership teams navigating regulatory exposure, business model risk, and complex growth decisions in healthcare and life sciences markets.',
     detail:
       'Includes enterprise partnerships, institutional credibility, crisis response, and strategic positioning for capital, customers, and regulators.',
-    bordered: false,
+    bordered: true,
     iconType: 'shield' as const,
   },
   {
@@ -87,15 +91,21 @@ const services = [
     title: 'Regulatory Intelligence and Strategic Analysis',
     description:
       'Ongoing monitoring and interpretation of regulatory, enforcement, and licensure activity translated into actionable business guidance, enabling organizations to adapt operations proactively rather than reactively.',
-    detail: '',
+    detail:
+      'We track FDA, DEA, state board, and enforcement developments in real time and translate them into targeted briefings, risk flags, and strategic recommendations that inform executive decision-making and operational planning.',
     bordered: true,
-    iconType: 'circle' as const,
+    iconType: 'search' as const,
   },
 ]
 
 export default function Services() {
   return (
     <div className="overflow-hidden">
+      <SEO
+        title="Services & Solutions — Strategic Advisory for Regulated Healthcare"
+        description="Strategic advisory across pharmacy, pharmaceutical manufacturing, digital health, executive strategy, investor diligence, and regulatory intelligence. 50 Elixir translates compliance into execution."
+        path="/services"
+      />
       {/* ═══ MAIN SERVICES SECTION — huge bg ═══ */}
       <section className="relative">
         {/* Topographic map background */}
@@ -164,17 +174,28 @@ export default function Services() {
                 lineHeight: '1.15',
               }}
             >
-              Services &amp;
-              <br />
-              Solutions
+              <span aria-hidden className="invisible block">
+                Services &amp;<br />Solutions
+              </span>
+              <span className="absolute inset-0">
+                <TypedText
+                  segments={[
+                    { text: 'Services &' },
+                    { lineBreak: true, text: '' },
+                    { text: 'Solutions', gold: true },
+                  ]}
+                  speed={55}
+                />
+              </span>
             </h1>
           </div>
 
           {/* Services Grid */}
           <div className="grid md:grid-cols-2 gap-6 md:gap-12 lg:gap-16">
             {services.map((service, i) => (
-              <div
+              <Reveal
                 key={service.num}
+                delay={i * 120}
                 className={`relative flex flex-col gap-5 ${i % 2 === 1 ? 'services-card-offset' : ''}`}
               >
                 {/* Dark radial blob behind each card */}
@@ -207,21 +228,6 @@ export default function Services() {
                 {!service.bordered ? (
                   /* ═══ STRATEGIC PILLAR LAYOUT (01, 04, 05) ═══ */
                   <>
-                    {/* Category label */}
-                    <span
-                      className="uppercase"
-                      style={{
-                        fontFamily: "'Space Grotesk', sans-serif",
-                        fontSize: '10px',
-                        letterSpacing: '3px',
-                        lineHeight: '15px',
-                        color: '#D2B06B',
-                        fontWeight: 600,
-                      }}
-                    >
-                      {service.category}
-                    </span>
-
                     {/* Title + Number row */}
                     <div className="flex items-start justify-between gap-4">
                       <h3
@@ -292,21 +298,6 @@ export default function Services() {
                 ) : (
                   /* ═══ PRECISION GRID LAYOUT (02, 03, 06) ═══ */
                   <>
-                    {/* Category — white */}
-                    <span
-                      className="uppercase"
-                      style={{
-                        fontFamily: "'Space Grotesk', sans-serif",
-                        fontSize: '10px',
-                        letterSpacing: '3px',
-                        lineHeight: '15px',
-                        color: '#E5E2E1',
-                        fontWeight: 600,
-                      }}
-                    >
-                      {service.category}
-                    </span>
-
                     {/* Title — gold */}
                     <h3
                       className="text-[#D2B06B] uppercase"
@@ -376,7 +367,7 @@ export default function Services() {
                   </>
                 )}
                 </div>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -441,42 +432,7 @@ export default function Services() {
                 </p>
               </div>
 
-              <form
-                className="flex flex-col md:flex-row items-stretch md:items-center gap-4 flex-shrink-0 w-full md:w-auto"
-                onSubmit={(e) => e.preventDefault()}
-              >
-                <div className="w-full md:w-auto">
-                  <label
-                    className="block text-[#D2B06B]/60 uppercase mb-2"
-                    style={{
-                      fontFamily: "'Space Mono', monospace",
-                      fontSize: '11px',
-                      letterSpacing: '2px',
-                    }}
-                  >
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    placeholder="john@example.com"
-                    className="bg-transparent border border-[rgba(210,176,107,0.5)] px-4 py-3 text-[#D2B06B] text-sm placeholder:text-[#D2B06B]/30 focus:border-[#D2B06B] focus:outline-none transition-colors w-full md:w-[240px]"
-                    style={{ fontFamily: "'Manrope', sans-serif" }}
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className="uppercase text-[#E5E2E1] px-8 py-3 w-full md:w-auto md:self-end"
-                  style={{
-                    fontFamily: "'Manrope', sans-serif",
-                    fontSize: '14px',
-                    letterSpacing: '2px',
-                    backgroundColor: 'rgba(255,255,255,0.08)',
-                    border: '1px solid rgba(194,162,125,0.4)',
-                  }}
-                >
-                  Subscribe
-                </button>
-              </form>
+              <SubscribeForm />
             </div>
           </div>
         </div>

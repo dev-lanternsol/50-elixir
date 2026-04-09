@@ -70,6 +70,33 @@ body {
   background-color: rgba(210, 176, 107, 0.1);
 }
 
+/* Primary gradient CTA button (DISCUSS YOUR PROJECT, View All Services, etc.) */
+.btn-gold-cta {
+  transition: all 0.3s ease;
+  position: relative;
+}
+.btn-gold-cta:hover {
+  background: #FFFFFF !important;
+  border-color: #FFFFFF !important;
+  color: var(--color-gold) !important;
+}
+.btn-gold-cta:hover * {
+  color: var(--color-gold) !important;
+}
+
+/* Subscribe / subtle button hover */
+.btn-subtle:hover {
+  background-color: #FFFFFF !important;
+  border-color: #FFFFFF !important;
+  color: var(--color-gold) !important;
+}
+.btn-subtle:hover * {
+  color: var(--color-gold) !important;
+}
+.btn-subtle {
+  transition: all 0.3s ease;
+}
+
 /* Section divider line */
 .divider-gold {
   height: 1px;
@@ -96,11 +123,42 @@ body {
   animation: logo-scroll 25s linear infinite;
 }
 
+/* Typed cursor blink */
+.typed-cursor {
+  animation: typed-blink 0.9s step-end infinite;
+}
+@keyframes typed-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
 /* Services card stagger — desktop only */
 @media (min-width: 768px) {
   .services-card-offset {
     margin-top: 60px;
   }
+}
+
+/* Services card hover — white bg + gold text */
+.services-card-bordered,
+.services-card-pillar {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+.services-card-bordered:hover,
+.services-card-pillar:hover {
+  background-color: #FFFFFF !important;
+  border-color: #FFFFFF !important;
+}
+.services-card-bordered:hover h3,
+.services-card-pillar:hover h3,
+.services-card-bordered:hover p,
+.services-card-pillar:hover p,
+.services-card-bordered:hover span,
+.services-card-pillar:hover span {
+  color: var(--color-gold) !important;
+}
+.services-card-pillar:hover {
+  border-left-color: var(--color-gold) !important;
 }
 
 /* Hero buttons — mobile override */

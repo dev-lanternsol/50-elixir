@@ -1,12 +1,25 @@
 import { Link } from 'react-router-dom'
+import SEO from '../components/SEO'
+import SubscribeForm from '../components/SubscribeForm'
+import TypedText, { type TypedSegment } from '../components/TypedText'
 import treesAbout from '../assets/trees-about.png'
 import treesAboutMobile from '../assets/trees-about-mobile.png'
 import mountainBg2 from '../assets/mountain-bg-2.png'
 import mountainAboutMobile from '../assets/mountain-about-mobile.png'
 
+const aboutHeadingSegments: TypedSegment[] = [
+  { text: 'About ' },
+  { text: 'Us', gold: true },
+]
+
 export default function About() {
   return (
     <div className="overflow-hidden">
+      <SEO
+        title="About — Regulatory Strategy Built on Operational Experience"
+        description="Founded by Tim Frost, 50 Elixir brings regulatory affairs, government operations, and healthcare leadership experience to advisory engagements across pharmacy, manufacturing, digital health, and investor markets."
+        path="/about"
+      />
       {/* ═══ MOBILE: combined hero + founder wrapper with trees bg ═══ */}
       <div className="md:hidden relative">
         {/* Trees illustration — mobile: behind founder area */}
@@ -48,16 +61,19 @@ export default function About() {
             </span>
           </div>
 
-          {/* Heading */}
+          {/* Heading — typed animation */}
           <h1
-            className="text-[#E5E2E1] uppercase mb-5"
+            className="relative text-[#E5E2E1] uppercase mb-5"
             style={{
               fontFamily: "'OCR A Std', monospace",
               fontSize: '28px',
               lineHeight: '1.1',
             }}
           >
-            About Us
+            <span aria-hidden className="invisible">About Us</span>
+            <span className="absolute inset-0">
+              <TypedText segments={aboutHeadingSegments} speed={70} />
+            </span>
           </h1>
 
           {/* Description — italic on mobile */}
@@ -107,7 +123,7 @@ export default function About() {
                 lineHeight: '24px',
               }}
             >
-              Tim Frost, PharmD
+              Tim Frost
             </h3>
             <a
               href="mailto:TIM@50ELIXIR.COM"
@@ -297,16 +313,19 @@ export default function About() {
             </span>
           </div>
 
-          {/* Heading */}
+          {/* Heading — typed animation */}
           <h1
-            className="text-[#E5E2E1] uppercase mb-16"
+            className="relative text-[#E5E2E1] uppercase mb-16"
             style={{
               fontFamily: "'OCR A Std', monospace",
               fontSize: 'clamp(36px, 4vw, 56px)',
               lineHeight: '1.1',
             }}
           >
-            About Us
+            <span aria-hidden className="invisible">About Us</span>
+            <span className="absolute inset-0">
+              <TypedText segments={aboutHeadingSegments} speed={70} />
+            </span>
           </h1>
 
           {/* Description — centered block, left-aligned text */}
@@ -366,7 +385,7 @@ export default function About() {
                     lineHeight: '24px',
                   }}
                 >
-                  Tim Frost, PharmD
+                  Tim Frost
                 </h3>
                 <a
                   href="mailto:TIM@50ELIXIR.COM"
@@ -584,42 +603,7 @@ export default function About() {
                 </p>
               </div>
 
-              <form
-                className="flex flex-col md:flex-row items-stretch md:items-center gap-4 flex-shrink-0 w-full md:w-auto"
-                onSubmit={(e) => e.preventDefault()}
-              >
-                <div className="w-full md:w-auto">
-                  <label
-                    className="block text-[#D2B06B]/60 uppercase mb-2"
-                    style={{
-                      fontFamily: "'Space Mono', monospace",
-                      fontSize: '11px',
-                      letterSpacing: '2px',
-                    }}
-                  >
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    placeholder="john@example.com"
-                    className="bg-transparent border border-[rgba(210,176,107,0.5)] px-4 py-3 text-[#D2B06B] text-sm placeholder:text-[#D2B06B]/30 focus:border-[#D2B06B] focus:outline-none transition-colors w-full md:w-[240px]"
-                    style={{ fontFamily: "'Manrope', sans-serif" }}
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className="uppercase text-[#E5E2E1] px-8 py-3 w-full md:w-auto md:self-end"
-                  style={{
-                    fontFamily: "'Manrope', sans-serif",
-                    fontSize: '14px',
-                    letterSpacing: '2px',
-                    backgroundColor: 'rgba(255,255,255,0.08)',
-                    border: '1px solid rgba(194,162,125,0.4)',
-                  }}
-                >
-                  Subscribe
-                </button>
-              </form>
+              <SubscribeForm />
             </div>
           </div>
         </div>

@@ -1,8 +1,77 @@
+import { useState, type FormEvent } from 'react'
+import SEO from '../components/SEO'
+import SubscribeForm from '../components/SubscribeForm'
+import TypedText from '../components/TypedText'
 import mountainContact from '../assets/mountain-contact.png'
 
+type ContactStatus = 'idle' | 'loading' | 'success' | 'error'
+
 export default function Contact() {
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [organization, setOrganization] = useState('')
+  const [message, setMessage] = useState('')
+  const [honeypot, setHoneypot] = useState('')
+  const [status, setStatus] = useState<ContactStatus>('idle')
+  const [errorMsg, setErrorMsg] = useState('')
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    if (status === 'loading') return
+
+    if (honeypot) {
+      setStatus('success')
+      return
+    }
+
+    if (!name.trim() || !email.trim() || !message.trim()) {
+      setStatus('error')
+      setErrorMsg('Please fill in name, email, and message.')
+      return
+    }
+
+    setStatus('loading')
+    setErrorMsg('')
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: name.trim(),
+          email: email.trim(),
+          organization: organization.trim(),
+          message: message.trim(),
+          company: honeypot,
+        }),
+      })
+
+      const data = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string }
+
+      if (!res.ok || !data.ok) {
+        setStatus('error')
+        setErrorMsg(data.error || 'Something went wrong. Please try again.')
+        return
+      }
+
+      setStatus('success')
+      setName('')
+      setEmail('')
+      setOrganization('')
+      setMessage('')
+    } catch {
+      setStatus('error')
+      setErrorMsg('Network error. Please try again.')
+    }
+  }
+
   return (
     <div className="overflow-hidden">
+      <SEO
+        title="Contact — Discuss Your Project"
+        description="Reach 50 Elixir to discuss strategic advisory, regulatory compliance, or growth strategy for healthcare, pharmaceutical, and technology organizations."
+        path="/contact"
+      />
       {/* ═══ CONTACT SECTION ═══ */}
       <section className="contact-section relative overflow-hidden flex flex-col" style={{ padding: '0px 0 110px', minHeight: '1220px' }}>
         {/* Mountain background */}
@@ -53,16 +122,26 @@ export default function Contact() {
               </div>
 
               <h1
-                className="text-[#E5E2E1] uppercase mb-6 md:mb-12"
+                className="relative text-[#E5E2E1] uppercase mb-6 md:mb-12"
                 style={{
                   fontFamily: "'OCR A Std', monospace",
                   fontSize: 'clamp(36px, 4vw, 56px)',
                   lineHeight: '1.15',
                 }}
               >
-                Discuss Your
-                <br />
-                Project
+                <span aria-hidden className="invisible block">
+                  Discuss Your<br />Project
+                </span>
+                <span className="absolute inset-0">
+                  <TypedText
+                    segments={[
+                      { text: 'Discuss Your' },
+                      { lineBreak: true, text: '' },
+                      { text: 'Project', gold: true },
+                    ]}
+                    speed={55}
+                  />
+                </span>
               </h1>
 
               <p
@@ -131,8 +210,21 @@ export default function Contact() {
                 border: '1px solid rgba(194, 162, 125, 0.4)',
                 padding: '32px',
               }}
-              onSubmit={(e) => e.preventDefault()}
+              onSubmit={handleSubmit}
+              noValidate
             >
+              {/* Honeypot — hidden from users, bots fill it */}
+              <input
+                type="text"
+                name="company"
+                tabIndex={-1}
+                autoComplete="off"
+                value={honeypot}
+                onChange={(e) => setHoneypot(e.target.value)}
+                style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px', opacity: 0 }}
+                aria-hidden="true"
+              />
+
               {/* Name + Email row */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="flex flex-col gap-2">
@@ -151,8 +243,12 @@ export default function Contact() {
                   </label>
                   <input
                     type="text"
-                    placeholder="John Doe"
-                    className="w-full bg-transparent border border-[rgba(194,162,125,0.4)] text-sm placeholder:text-[#E5E2E1]/30 focus:border-[#D2B06B]/60 focus:outline-none transition-colors"
+                    placeholder="Your name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    disabled={status === 'loading'}
+                    required
+                    className="w-full bg-transparent border border-[rgba(194,162,125,0.4)] text-sm placeholder:text-[#E5E2E1]/30 focus:border-[#D2B06B]/60 focus:outline-none transition-colors disabled:opacity-50"
                     style={{
                       fontFamily: "'Manrope', sans-serif",
                       fontSize: '14px',
@@ -178,7 +274,11 @@ export default function Contact() {
                   <input
                     type="email"
                     placeholder="john@example.com"
-                    className="w-full bg-transparent border border-[rgba(194,162,125,0.4)] text-sm placeholder:text-[#E5E2E1]/30 focus:border-[#D2B06B]/60 focus:outline-none transition-colors"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    disabled={status === 'loading'}
+                    required
+                    className="w-full bg-transparent border border-[rgba(194,162,125,0.4)] text-sm placeholder:text-[#E5E2E1]/30 focus:border-[#D2B06B]/60 focus:outline-none transition-colors disabled:opacity-50"
                     style={{
                       fontFamily: "'Manrope', sans-serif",
                       fontSize: '14px',
@@ -207,7 +307,10 @@ export default function Contact() {
                 <input
                   type="text"
                   placeholder="Health Systems Inc."
-                  className="w-full bg-transparent border border-[rgba(194,162,125,0.4)] text-sm placeholder:text-[#E5E2E1]/30 focus:border-[#D2B06B]/60 focus:outline-none transition-colors"
+                  value={organization}
+                  onChange={(e) => setOrganization(e.target.value)}
+                  disabled={status === 'loading'}
+                  className="w-full bg-transparent border border-[rgba(194,162,125,0.4)] text-sm placeholder:text-[#E5E2E1]/30 focus:border-[#D2B06B]/60 focus:outline-none transition-colors disabled:opacity-50"
                   style={{
                     fontFamily: "'Manrope', sans-serif",
                     fontSize: '14px',
@@ -235,7 +338,11 @@ export default function Contact() {
                 <textarea
                   rows={4}
                   placeholder="How can we assist you?"
-                  className="w-full bg-transparent border border-[rgba(194,162,125,0.4)] text-sm placeholder:text-[#E5E2E1]/30 focus:border-[#D2B06B]/60 focus:outline-none transition-colors resize-none"
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  disabled={status === 'loading'}
+                  required
+                  className="w-full bg-transparent border border-[rgba(194,162,125,0.4)] text-sm placeholder:text-[#E5E2E1]/30 focus:border-[#D2B06B]/60 focus:outline-none transition-colors resize-none disabled:opacity-50"
                   style={{
                     fontFamily: "'Manrope', sans-serif",
                     fontSize: '14px',
@@ -249,7 +356,8 @@ export default function Contact() {
               {/* Submit */}
               <button
                 type="submit"
-                className="w-full uppercase text-[#E5E2E1] py-4"
+                disabled={status === 'loading' || status === 'success'}
+                className="btn-subtle w-full uppercase text-[#E5E2E1] py-4 disabled:cursor-not-allowed"
                 style={{
                   fontFamily: "'Manrope', sans-serif",
                   fontSize: '14px',
@@ -258,8 +366,32 @@ export default function Contact() {
                   border: '1px solid rgba(194,162,125,0.4)',
                 }}
               >
-                Send Message
+                {status === 'loading'
+                  ? 'Sending…'
+                  : status === 'success'
+                    ? 'Message Sent ✓'
+                    : 'Send Message'}
               </button>
+
+              {/* Feedback */}
+              {status === 'error' && errorMsg && (
+                <span
+                  className="text-red-400"
+                  style={{ fontFamily: "'Manrope', sans-serif", fontSize: '13px' }}
+                  aria-live="polite"
+                >
+                  {errorMsg}
+                </span>
+              )}
+              {status === 'success' && (
+                <span
+                  className="text-[#D2B06B]"
+                  style={{ fontFamily: "'Manrope', sans-serif", fontSize: '13px' }}
+                  aria-live="polite"
+                >
+                  Thanks — we'll be in touch shortly.
+                </span>
+              )}
             </form>
           </div>
         </div>
@@ -300,42 +432,7 @@ export default function Contact() {
                 </p>
               </div>
 
-              <form
-                className="flex flex-col md:flex-row items-stretch md:items-center gap-4 flex-shrink-0 w-full md:w-auto"
-                onSubmit={(e) => e.preventDefault()}
-              >
-                <div className="w-full md:w-auto">
-                  <label
-                    className="block text-[#D2B06B]/60 uppercase mb-2"
-                    style={{
-                      fontFamily: "'Space Mono', monospace",
-                      fontSize: '11px',
-                      letterSpacing: '2px',
-                    }}
-                  >
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    placeholder="john@example.com"
-                    className="bg-transparent border border-[rgba(210,176,107,0.5)] px-4 py-3 text-[#D2B06B] text-sm placeholder:text-[#D2B06B]/30 focus:border-[#D2B06B] focus:outline-none transition-colors w-full md:w-[240px]"
-                    style={{ fontFamily: "'Manrope', sans-serif" }}
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className="uppercase text-[#E5E2E1] px-8 py-3 w-full md:w-auto md:self-end"
-                  style={{
-                    fontFamily: "'Manrope', sans-serif",
-                    fontSize: '14px',
-                    letterSpacing: '2px',
-                    backgroundColor: 'rgba(255,255,255,0.08)',
-                    border: '1px solid rgba(194,162,125,0.4)',
-                  }}
-                >
-                  Subscribe
-                </button>
-              </form>
+              <SubscribeForm />
             </div>
           </div>
         </div>

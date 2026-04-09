@@ -51,7 +51,7 @@ export default function Navbar() {
 
           <Link
             to="/contact"
-            className="flex items-center justify-center uppercase text-[#E5E2E1] text-base"
+            className="btn-gold-cta flex items-center justify-center uppercase text-[#E5E2E1] text-base"
             style={{
               fontFamily: "'Manrope', sans-serif",
               letterSpacing: '0.6px',
@@ -106,7 +106,9 @@ export default function Navbar() {
               </svg>
             </button>
             <div className="flex-1 flex justify-center">
-              <img src={logo} alt="50 Elixir" className="h-auto object-cover" style={{ width: '140px' }} />
+              <Link to="/" onClick={() => setMobileOpen(false)}>
+                <img src={logo} alt="50 Elixir" className="h-auto object-cover" style={{ width: '140px' }} />
+              </Link>
             </div>
             <div style={{ width: '24px' }} />
           </div>
