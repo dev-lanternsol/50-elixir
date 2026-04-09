@@ -75,23 +75,27 @@ body {
   transition: all 0.3s ease;
   position: relative;
 }
-.btn-gold-cta:hover {
-  background: #FFFFFF !important;
-  border-color: #FFFFFF !important;
-  color: var(--color-gold) !important;
-}
-.btn-gold-cta:hover * {
-  color: var(--color-gold) !important;
-}
+/* Hover-only — only applies on devices with a real mouse pointer.
+   Prevents sticky :hover on touch devices after tap/scroll. */
+@media (hover: hover) and (pointer: fine) {
+  .btn-gold-cta:hover {
+    background: #FFFFFF !important;
+    border-color: #FFFFFF !important;
+    color: var(--color-gold) !important;
+  }
+  .btn-gold-cta:hover * {
+    color: var(--color-gold) !important;
+  }
 
-/* Subscribe / subtle button hover */
-.btn-subtle:hover {
-  background-color: #FFFFFF !important;
-  border-color: #FFFFFF !important;
-  color: var(--color-gold) !important;
-}
-.btn-subtle:hover * {
-  color: var(--color-gold) !important;
+  /* Subscribe / subtle button hover */
+  .btn-subtle:hover {
+    background-color: #FFFFFF !important;
+    border-color: #FFFFFF !important;
+    color: var(--color-gold) !important;
+  }
+  .btn-subtle:hover * {
+    color: var(--color-gold) !important;
+  }
 }
 .btn-subtle {
   transition: all 0.3s ease;
@@ -139,27 +143,7 @@ body {
   }
 }
 
-/* Services card hover — white bg + gold text */
-.services-card-bordered,
-.services-card-pillar {
-  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
-}
-.services-card-bordered:hover,
-.services-card-pillar:hover {
-  background-color: #FFFFFF !important;
-  border-color: #FFFFFF !important;
-}
-.services-card-bordered:hover h3,
-.services-card-pillar:hover h3,
-.services-card-bordered:hover p,
-.services-card-pillar:hover p,
-.services-card-bordered:hover span,
-.services-card-pillar:hover span {
-  color: var(--color-gold) !important;
-}
-.services-card-pillar:hover {
-  border-left-color: var(--color-gold) !important;
-}
+/* Services cards — no hover state (intentional; static cards) */
 
 /* Hero buttons — mobile override */
 @media (max-width: 767px) {

@@ -277,7 +277,8 @@ export default function Home() {
         </div>
 
         {/* ═══ PUBLISHED IN / FEATURED IN ═══ */}
-        <div className="mt-32 md:mt-72 text-center">
+        {/* Hidden until we have high-res/SVG versions of the logos — Erin: "Looks blurry" */}
+        <div className="hidden mt-32 md:mt-72 text-center">
           <p
             className="uppercase text-[#E5E2E1] mb-10"
             style={{
