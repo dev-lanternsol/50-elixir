@@ -64,7 +64,7 @@ export default function SubscribeForm() {
 
   return (
     <form
-      className="contact-subscribe-block flex flex-col md:flex-row items-stretch md:items-center gap-4 flex-shrink-0 w-full md:w-auto"
+      className="contact-subscribe-block flex flex-col md:flex-row items-stretch md:items-end gap-4 flex-shrink-0 w-full md:w-auto"
       onSubmit={handleSubmit}
       noValidate
     >
@@ -119,7 +119,7 @@ export default function SubscribeForm() {
         <button
           type="submit"
           disabled={status === 'loading' || status === 'success'}
-          className="btn-subtle uppercase text-[#E5E2E1] px-8 py-3 w-full md:w-auto md:self-end disabled:opacity-60 disabled:cursor-not-allowed"
+          className="btn-subtle uppercase text-[#E5E2E1] px-8 py-3 w-full md:w-auto disabled:opacity-60 disabled:cursor-not-allowed"
           style={{
             fontFamily: "'Manrope', sans-serif",
             fontSize: '14px',

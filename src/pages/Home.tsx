@@ -89,6 +89,39 @@ const media = [
   },
 ]
 
+const publishedLogos = [
+  {
+    image: brandPharmacy,
+    alt: 'Pharmacy Podcast Network',
+    url: 'https://www.pharmacypodcast.com/',
+  },
+  {
+    image: brandCompanies208,
+    alt: '208 Companies',
+    url: 'https://www.208companies.com/',
+  },
+  {
+    image: brandCapsule,
+    alt: 'Capsule',
+    url: 'https://www.capsule.com/',
+  },
+  {
+    image: brandHims,
+    alt: 'hims',
+    url: 'https://www.hims.com/',
+  },
+  {
+    image: brandBuild,
+    alt: 'build_',
+    url: 'https://www.buildcities.com/',
+  },
+  {
+    image: brandCicero,
+    alt: 'Cicero Institute',
+    url: 'https://ciceroinstitute.org/',
+  },
+]
+
 /* ── Typed hero heading ─────────────────────────────────────── */
 
 const heroSegments: TypedSegment[] = [
@@ -277,8 +310,7 @@ export default function Home() {
         </div>
 
         {/* ═══ PUBLISHED IN / FEATURED IN ═══ */}
-        {/* Hidden until we have high-res/SVG versions of the logos — Erin: "Looks blurry" */}
-        <div className="hidden mt-32 md:mt-72 text-center">
+        <div className="mt-32 md:mt-72 text-center">
           <p
             className="uppercase text-[#E5E2E1] mb-10"
             style={{
@@ -292,28 +324,27 @@ export default function Home() {
           </p>
 
           {/* Scrolling logo carousel — infinite loop */}
-          <div className="overflow-hidden w-full" style={{ height: '140px' }}>
+          <div className="overflow-hidden w-full" style={{ height: '84px' }}>
             <div className="logo-scroll flex items-center h-full" style={{ width: 'max-content' }}>
               {[0, 1, 2].map((setIndex) => (
-                <div key={setIndex} className="flex items-center gap-16 pr-16 h-full">
-                  <div className="flex items-center justify-center" style={{ width: '200px', height: '120px' }}>
-                    <img src={brandPharmacy} alt="Pharmacy" className="max-h-full max-w-full object-contain opacity-60" />
-                  </div>
-                  <div className="flex items-center justify-center" style={{ width: '200px', height: '120px' }}>
-                    <img src={brandCompanies208} alt="208 Companies" className="max-h-full max-w-full object-contain opacity-60" />
-                  </div>
-                  <div className="flex items-center justify-center" style={{ width: '200px', height: '120px' }}>
-                    <img src={brandCapsule} alt="Capsule" className="max-h-full max-w-full object-contain opacity-60" />
-                  </div>
-                  <div className="flex items-center justify-center" style={{ width: '200px', height: '120px' }}>
-                    <img src={brandHims} alt="hims" className="max-h-full max-w-full object-contain opacity-60" />
-                  </div>
-                  <div className="flex items-center justify-center" style={{ width: '200px', height: '120px' }}>
-                    <img src={brandBuild} alt="build_" className="max-h-full max-w-full object-contain opacity-60" />
-                  </div>
-                  <div className="flex items-center justify-center" style={{ width: '200px', height: '120px' }}>
-                    <img src={brandCicero} alt="Cicero Institute" className="max-h-full max-w-full object-contain opacity-60" />
-                  </div>
+                <div key={setIndex} className="flex items-center gap-12 md:gap-16 pr-12 md:pr-16 h-full">
+                  {publishedLogos.map((logo) => (
+                    <a
+                      key={logo.alt}
+                      href={logo.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={logo.alt}
+                      className="flex items-center justify-center opacity-70 hover:opacity-100 transition-opacity"
+                      style={{ width: '154px', height: '72px' }}
+                    >
+                      <img
+                        src={logo.image}
+                        alt={logo.alt}
+                        className="max-w-[142px] max-h-[60px] object-contain"
+                      />
+                    </a>
+                  ))}
                 </div>
               ))}
             </div>
