@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Reveal from '../components/Reveal'
 import SEO from '../components/SEO'
@@ -83,6 +84,178 @@ const media = [
   },
 ]
 
+const publications = [
+  {
+    year: '2026',
+    authors: 'Meier, A., Frost, T.P.',
+    title: 'The AI Medical Services Act: A Pro-Innovation Framework for Healthcare Access and Safety',
+    source: 'Cicero Institute',
+    url: 'https://ciceroinstitute.org/research/ai-medical-services-act/',
+  },
+  {
+    year: '2026',
+    authors: 'Frost, T.P.',
+    title: 'A solution to the doctor shortage could be just down the street',
+    source: 'Wall Street Journal',
+    url: 'https://www.washingtonpost.com/opinions/2026/02/11/healthcare-pharmacists-regulation/',
+  },
+  {
+    year: '2026',
+    authors: 'Frost, T.P., Eid, D., Adams, A.J.',
+    title: 'The MPJE at a Crossroads: Is the Uniform Multistate Pharmacy Jurisprudence Examination Even Necessary?',
+    source: 'Annals of Pharmacotherapy',
+    url: 'https://journals.sagepub.com/doi/10.1177/10600280251371675',
+  },
+  {
+    year: '2026',
+    authors: 'Frost, T.P., Eid, D., Adams, A.J.',
+    title: 'Frequently Asked Questions (FAQs) on Pharmacists\u2019 Standard of Care (SOC) Regulation',
+    source: 'Research in Social and Administrative Pharmacy',
+    url: 'https://pubmed.ncbi.nlm.nih.gov/',
+  },
+  {
+    year: '2026',
+    authors: 'Frost, T.P., Adams, A.J., Jones, A.',
+    title: 'Restoring the Balance: A State Agency Guide to Taming the Administrative State',
+    source: 'Cicero Institute',
+    url: 'https://ciceroinstitute.org/research/a-state-agency-guide-to-taming-the-administrative-state/',
+  },
+  {
+    year: '2025',
+    authors: 'Frost, T.P., Johnson, M.',
+    title: 'Unlocking Pharmacist Innovation: 2025 Policy Strategies for Full Practice Authority',
+    source: 'Cicero Institute',
+    url: 'https://ciceroinstitute.org/wp-content/uploads/2025/08/2025-Policy-Strategies-for-Full-Practice-Authority-8-20-2025.pdf',
+  },
+  {
+    year: '2025',
+    authors: 'Frost, T.P., Eid, D., Adams, A.J.',
+    title: 'The MPJE at a Crossroads: Is the Uniform Multistate Pharmacy Jurisprudence Examination Even Necessary?',
+    source: 'Annals of Pharmacotherapy',
+    url: 'https://journals.sagepub.com/doi/10.1177/10600280251371675',
+  },
+  {
+    year: '2025',
+    authors: 'Frost, T.P., Wolfson, J.',
+    title: 'Unwinding Delegation: Taking Back Power From the Administrative State',
+    source: 'Cicero Institute',
+    url: 'https://ciceroinstitute.org/research/taking-back-power-from-the-administrative-state/',
+  },
+  {
+    year: '2025',
+    authors: 'Frost, T.P., Wolfson, J.',
+    title: 'Three Regulatory Reform Catalysts to Inject Speed into Business',
+    source: 'Cicero Institute',
+    url: 'https://ciceroinstitute.org/wp-content/uploads/2025/01/Three-Regulatory-Reform-Catalysts-to-Inject-Innovation-and-Speed-into-Business-white-paper-1-22-2025.pdf',
+  },
+  {
+    year: '2024',
+    authors: 'Frost, T.P., Wolfson, J.',
+    title: 'Towards Pharmacist Full Practice Authority',
+    source: 'Cicero Institute',
+    url: 'https://ciceroinstitute.org/wp-content/uploads/2024/11/Toward-Pharmacist-Full-Practice-Authority-11-1-2024.pdf',
+  },
+  {
+    year: '2024',
+    authors: 'Adams, A.J., Frost, T.P.',
+    title: 'Taking the REINS of the Administrative State',
+    source: 'Cato Regulation Magazine',
+    url: 'https://cato.org/regulation/fall-2024/taking-reins-administrative-state',
+  },
+  {
+    year: '2024',
+    authors: 'Adams, A.J., Frost, T.P.',
+    title: 'Tiered Licensure for Pharmacy Technicians: Is the Advanced Pharmacy Technician (APhT) License the Model for State Regulators?',
+    source: 'Journal of Pharmacy Technology',
+    url: '',
+  },
+  {
+    year: '2023',
+    authors: 'Adams, A.J., Frost, T.P., Eid, D.',
+    title: 'The basis for elimination of the jurisprudence examination as a condition of pharmacist licensure in Idaho',
+    source: 'American Journal of Pharmaceutical Education',
+    url: '',
+  },
+  {
+    year: '2023',
+    authors: 'Adams, A., Frost, T.P.',
+    title: 'Expunging board of pharmacy disciplinary actions',
+    source: 'INNOVATIONS in Pharmacy',
+    url: '',
+  },
+  {
+    year: '2023',
+    authors: 'Adams, A.J., Frost, T.P.',
+    title: 'The over-regulation of pharmacist services: Why over-the-counter naloxone should spark conversation about a \u201Cstandard of care\u201D regulatory approach',
+    source: 'Journal of the American College of Clinical Pharmacy',
+    url: '',
+  },
+  {
+    year: '2022',
+    authors: 'Adams, A.J., Frost, T.P.',
+    title: 'Pathways to pharmacist prescriptive authority: Do decentralized models for expanded prescribing work?',
+    source: 'Research in Social and Administrative Pharmacy',
+    url: '',
+  },
+  {
+    year: '2021',
+    authors: 'Adams, A.J., Frost, T., Weaver, K.',
+    title: 'Pharmacy Regulatory Innovation Index: Benchmarking the regulatory environment in 10 western states',
+    source: 'Journal of the American Pharmacists Association',
+    url: '',
+  },
+  {
+    year: '2020',
+    authors: 'Frost, T.P., Millard, M.E., Doyle, I.C.',
+    title: 'Pharmacists\u2019 prescribing authority: The Oregon approach',
+    source: 'American Journal of Health-System Pharmacy',
+    url: '',
+  },
+  {
+    year: '2019',
+    authors: 'Frost, T.P., Klepser, D.G., Small, D.C., Doyle, I.C.',
+    title: 'Time and Motion Study of Pharmacist Prescribing of Oral Hormonal Contraceptives in Oregon Community Pharmacies',
+    source: 'Journal of the American Pharmacists Association',
+    url: '',
+  },
+  {
+    year: '2017',
+    authors: 'Frost, T.P., Adams, A.J.',
+    title: 'Tech-check-Tech in community pharmacy practice settings',
+    source: 'Journal of Pharmacy Technology',
+    url: '',
+  },
+  {
+    year: '2017',
+    authors: 'Genord, C.C., Frost, T.P., Eid, D.D.',
+    title: 'Opioid exit plan: A pharmacist\u2019s role in managing acute postoperative pain',
+    source: 'Journal of the American Pharmacists Association',
+    url: '',
+  },
+  {
+    year: '2017',
+    authors: 'Frost, T.P., Adams, A.J.',
+    title: 'Pharmacist and Technician Perceptions of Tech-Check-Tech in Community Pharmacy Practice Settings',
+    source: 'Journal of Pharmacy Practice',
+    url: '',
+  },
+  {
+    year: '2017',
+    authors: 'Frost, T.P., Adams, A.J.',
+    title: 'Are advanced practice pharmacist designations really advanced?',
+    source: 'Research in Social & Administrative Pharmacy',
+    url: '',
+  },
+  {
+    year: '2016',
+    authors: 'Frost, T.P., Adams, A.J.',
+    title: 'Expanded pharmacy technician roles: Accepting verbal prescriptions and communicating prescription transfers',
+    source: 'Research in Social and Administrative Pharmacy',
+    url: '',
+  },
+]
+
+
 /* ── Typed hero heading ─────────────────────────────────────── */
 
 const heroSegments: TypedSegment[] = [
@@ -92,6 +265,186 @@ const heroSegments: TypedSegment[] = [
 ]
 
 /* ── Page ────────────────────────────────────────────────────── */
+
+/* ── Publications section ───────────────────────────────────── */
+
+function PublicationsSection() {
+  const [showAll, setShowAll] = useState(false)
+  const visible = showAll ? publications : publications.slice(0, 3)
+
+  return (
+    <section style={{ padding: '96px 18px' }}>
+      <div className="max-w-[1400px] mx-auto">
+        {/* Section label */}
+        <Reveal
+          as="span"
+          className="text-[#D2B06B] uppercase block mb-8"
+          style={{
+            fontFamily: "'Manrope', sans-serif",
+            fontWeight: 500,
+            fontSize: '14px',
+            letterSpacing: '5.6px',
+            lineHeight: '20px',
+          }}
+        >
+          Research &amp; Publications
+        </Reveal>
+
+        {/* Cards grid */}
+        <div className="grid md:grid-cols-3 gap-[24px]">
+          {visible.map((pub, idx) => (
+            <Reveal key={`${pub.title}-${pub.year}`} delay={idx < 3 ? idx * 150 : (idx - 3) * 60}>
+              {pub.url ? (
+                <a
+                  href={pub.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex flex-col h-full border border-[rgba(210,176,107,0.15)] hover:border-[#D2B06B]/50 transition-colors"
+                  style={{ padding: '28px 28px 24px' }}
+                >
+                  {/* Year pill */}
+                  <span
+                    className="text-[#D2B06B]/50 mb-[12px]"
+                    style={{
+                      fontFamily: "'Space Mono', monospace",
+                      fontSize: '11px',
+                      letterSpacing: '1.5px',
+                      lineHeight: '14px',
+                    }}
+                  >
+                    {pub.year}
+                  </span>
+
+                  {/* Source tag */}
+                  <span
+                    className="text-[#D2B06B] uppercase mb-[10px]"
+                    style={{
+                      fontFamily: "'Manrope', sans-serif",
+                      fontWeight: 600,
+                      fontSize: '10px',
+                      letterSpacing: '3px',
+                      lineHeight: '15px',
+                    }}
+                  >
+                    {pub.source}
+                  </span>
+
+                  {/* Title */}
+                  <h3
+                    className="text-[#E5E2E1] flex-1"
+                    style={{
+                      fontFamily: "'OCR A Std', monospace",
+                      fontSize: '18px',
+                      lineHeight: '24px',
+                    }}
+                  >
+                    {pub.title}
+                  </h3>
+
+                  {/* Authors */}
+                  <p
+                    className="text-[#E5E2E1]/30 mt-[12px] mb-[16px]"
+                    style={{
+                      fontFamily: "'Manrope', sans-serif",
+                      fontSize: '11px',
+                      lineHeight: '16px',
+                    }}
+                  >
+                    {pub.authors}
+                  </p>
+
+                  {/* Read More */}
+                  <span
+                    className="flex items-center gap-[8px] text-[#D2B06B] group-hover:text-[#E8D5A3] uppercase transition-colors"
+                    style={{
+                      fontFamily: "'Manrope', sans-serif",
+                      fontWeight: 600,
+                      fontSize: '10px',
+                      letterSpacing: '1px',
+                      lineHeight: '15px',
+                    }}
+                  >
+                    Read More <span style={{ fontSize: '12px' }}>&rarr;</span>
+                  </span>
+                </a>
+              ) : (
+                <div
+                  className="flex flex-col h-full border border-[rgba(210,176,107,0.15)]"
+                  style={{ padding: '28px 28px 24px' }}
+                >
+                  <span
+                    className="text-[#D2B06B]/50 mb-[12px]"
+                    style={{
+                      fontFamily: "'Space Mono', monospace",
+                      fontSize: '11px',
+                      letterSpacing: '1.5px',
+                      lineHeight: '14px',
+                    }}
+                  >
+                    {pub.year}
+                  </span>
+                  <span
+                    className="text-[#D2B06B] uppercase mb-[10px]"
+                    style={{
+                      fontFamily: "'Manrope', sans-serif",
+                      fontWeight: 600,
+                      fontSize: '10px',
+                      letterSpacing: '3px',
+                      lineHeight: '15px',
+                    }}
+                  >
+                    {pub.source}
+                  </span>
+                  <h3
+                    className="text-[#E5E2E1] flex-1"
+                    style={{
+                      fontFamily: "'OCR A Std', monospace",
+                      fontSize: '18px',
+                      lineHeight: '24px',
+                    }}
+                  >
+                    {pub.title}
+                  </h3>
+                  <p
+                    className="text-[#E5E2E1]/30 mt-[12px]"
+                    style={{
+                      fontFamily: "'Manrope', sans-serif",
+                      fontSize: '11px',
+                      lineHeight: '16px',
+                    }}
+                  >
+                    {pub.authors}
+                  </p>
+                </div>
+              )}
+            </Reveal>
+          ))}
+        </div>
+
+        {/* View Publications / Show Less */}
+        <Reveal delay={500}>
+          <div className="flex justify-end mt-[32px]">
+            <button
+              onClick={() => setShowAll(!showAll)}
+              className="text-[#cdc6b3] hover:text-[#E8D5A3] transition-colors cursor-pointer"
+              style={{
+                fontFamily: "'Manrope', sans-serif",
+                fontWeight: 300,
+                fontSize: '16px',
+                lineHeight: '24px',
+                background: 'none',
+                border: 'none',
+                padding: '10px',
+              }}
+            >
+              {showAll ? 'Show Less \u2192' : 'View Publications \u2192'}
+            </button>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  )
+}
 
 export default function Home() {
   return (
@@ -593,6 +946,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* ═══ PUBLICATIONS ═══ */}
+      <PublicationsSection />
 
       {/* ═══ MEDIA ═══ */}
       <section style={{ padding: '96px 18px' }}>
