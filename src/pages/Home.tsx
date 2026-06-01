@@ -805,7 +805,7 @@ export default function Home() {
                   fontFamily: "'OCR A Std', monospace",
                 }}
               >
-                What We <span className="text-[#D2B06B]">Do.</span>
+                What We <span className="text-[#D2B06B]">Do</span>
               </h2>
             </div>
 
