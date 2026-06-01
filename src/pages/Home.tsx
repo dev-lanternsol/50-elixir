@@ -68,17 +68,20 @@ const services = [
 
 const media = [
   {
-    tag: 'Podcast · DC EKG',
+    year: '2026',
+    source: 'DC EKG',
     title: 'How Pharmacists Can Revolutionize Healthcare',
     url: 'https://podtail.com/en/podcast/dc-ekg/how-pharmacists-can-revolutionize-healthcare-with-/',
   },
   {
-    tag: 'Podcast · RxPOSED',
+    year: '2026',
+    source: 'RxPOSED',
     title: 'Over Regulation and Healthcare Policy Problems',
     url: 'https://open.spotify.com/episode/4B53VCfIRWD3FWW1vfedL7',
   },
   {
-    tag: 'Podcast · Spotify',
+    year: '2026',
+    source: 'Spotify',
     title: "Blocking Cronyism, Restoring Control: Tim Frost on the REINS Act's Real Power",
     url: 'https://open.spotify.com/episode/3aDGSpuNoz2IoJv4FPViT1',
   },
@@ -266,181 +269,201 @@ const heroSegments: TypedSegment[] = [
 
 /* ── Page ────────────────────────────────────────────────────── */
 
-/* ── Publications section ───────────────────────────────────── */
+/* ── Insight card (shared between publications & media) ───── */
 
-function PublicationsSection() {
+function InsightCard({
+  year,
+  source,
+  title,
+  url,
+  authors,
+  cta = 'Read More',
+  delay,
+}: {
+  year: string
+  source: string
+  title: string
+  url: string
+  authors?: string
+  cta?: string
+  delay: number
+}) {
+  const inner = (
+    <>
+      <span
+        className="text-[#D2B06B]/50 mb-[12px]"
+        style={{ fontFamily: "'Space Mono', monospace", fontSize: '11px', letterSpacing: '1.5px', lineHeight: '14px' }}
+      >
+        {year}
+      </span>
+      <span
+        className="text-[#D2B06B] uppercase mb-[10px]"
+        style={{ fontFamily: "'Manrope', sans-serif", fontWeight: 600, fontSize: '10px', letterSpacing: '3px', lineHeight: '15px' }}
+      >
+        {source}
+      </span>
+      <h3
+        className="text-[#E5E2E1] flex-1"
+        style={{ fontFamily: "'OCR A Std', monospace", fontSize: '18px', lineHeight: '24px' }}
+      >
+        {title}
+      </h3>
+      {authors && (
+        <p
+          className="text-[#E5E2E1]/30 mt-[12px] mb-[16px]"
+          style={{ fontFamily: "'Manrope', sans-serif", fontSize: '11px', lineHeight: '16px' }}
+        >
+          {authors}
+        </p>
+      )}
+      {url && (
+        <span
+          className={`flex items-center gap-[8px] text-[#D2B06B] group-hover:text-[#E8D5A3] uppercase transition-colors${!authors ? ' mt-[16px]' : ''}`}
+          style={{ fontFamily: "'Manrope', sans-serif", fontWeight: 600, fontSize: '10px', letterSpacing: '1px', lineHeight: '15px' }}
+        >
+          {cta} <span style={{ fontSize: '12px' }}>&rarr;</span>
+        </span>
+      )}
+    </>
+  )
+
+  return (
+    <Reveal delay={delay}>
+      {url ? (
+        <a
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group flex flex-col h-full border border-[rgba(210,176,107,0.15)] hover:border-[#D2B06B]/50 transition-colors"
+          style={{ padding: '28px 28px 24px' }}
+        >
+          {inner}
+        </a>
+      ) : (
+        <div
+          className="flex flex-col h-full border border-[rgba(210,176,107,0.15)]"
+          style={{ padding: '28px 28px 24px' }}
+        >
+          {inner}
+        </div>
+      )}
+    </Reveal>
+  )
+}
+
+/* ── Education & Insights section ──────────────────────────── */
+
+function EducationInsightsSection() {
   const [showAll, setShowAll] = useState(false)
-  const visible = showAll ? publications : publications.slice(0, 3)
+  const visiblePubs = showAll ? publications : publications.slice(0, 3)
 
   return (
     <section style={{ padding: '96px 18px' }}>
       <div className="max-w-[1400px] mx-auto">
-        {/* Section label */}
-        <Reveal
-          as="span"
-          className="text-[#D2B06B] uppercase block mb-8"
-          style={{
-            fontFamily: "'Manrope', sans-serif",
-            fontWeight: 500,
-            fontSize: '14px',
-            letterSpacing: '5.6px',
-            lineHeight: '20px',
-          }}
-        >
-          Research &amp; Publications
-        </Reveal>
-
-        {/* Cards grid */}
-        <div className="grid md:grid-cols-3 gap-[24px]">
-          {visible.map((pub, idx) => (
-            <Reveal key={`${pub.title}-${pub.year}`} delay={idx < 3 ? idx * 150 : (idx - 3) * 60}>
-              {pub.url ? (
-                <a
-                  href={pub.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex flex-col h-full border border-[rgba(210,176,107,0.15)] hover:border-[#D2B06B]/50 transition-colors"
-                  style={{ padding: '28px 28px 24px' }}
-                >
-                  {/* Year pill */}
-                  <span
-                    className="text-[#D2B06B]/50 mb-[12px]"
-                    style={{
-                      fontFamily: "'Space Mono', monospace",
-                      fontSize: '11px',
-                      letterSpacing: '1.5px',
-                      lineHeight: '14px',
-                    }}
-                  >
-                    {pub.year}
-                  </span>
-
-                  {/* Source tag */}
-                  <span
-                    className="text-[#D2B06B] uppercase mb-[10px]"
-                    style={{
-                      fontFamily: "'Manrope', sans-serif",
-                      fontWeight: 600,
-                      fontSize: '10px',
-                      letterSpacing: '3px',
-                      lineHeight: '15px',
-                    }}
-                  >
-                    {pub.source}
-                  </span>
-
-                  {/* Title */}
-                  <h3
-                    className="text-[#E5E2E1] flex-1"
-                    style={{
-                      fontFamily: "'OCR A Std', monospace",
-                      fontSize: '18px',
-                      lineHeight: '24px',
-                    }}
-                  >
-                    {pub.title}
-                  </h3>
-
-                  {/* Authors */}
-                  <p
-                    className="text-[#E5E2E1]/30 mt-[12px] mb-[16px]"
-                    style={{
-                      fontFamily: "'Manrope', sans-serif",
-                      fontSize: '11px',
-                      lineHeight: '16px',
-                    }}
-                  >
-                    {pub.authors}
-                  </p>
-
-                  {/* Read More */}
-                  <span
-                    className="flex items-center gap-[8px] text-[#D2B06B] group-hover:text-[#E8D5A3] uppercase transition-colors"
-                    style={{
-                      fontFamily: "'Manrope', sans-serif",
-                      fontWeight: 600,
-                      fontSize: '10px',
-                      letterSpacing: '1px',
-                      lineHeight: '15px',
-                    }}
-                  >
-                    Read More <span style={{ fontSize: '12px' }}>&rarr;</span>
-                  </span>
-                </a>
-              ) : (
-                <div
-                  className="flex flex-col h-full border border-[rgba(210,176,107,0.15)]"
-                  style={{ padding: '28px 28px 24px' }}
-                >
-                  <span
-                    className="text-[#D2B06B]/50 mb-[12px]"
-                    style={{
-                      fontFamily: "'Space Mono', monospace",
-                      fontSize: '11px',
-                      letterSpacing: '1.5px',
-                      lineHeight: '14px',
-                    }}
-                  >
-                    {pub.year}
-                  </span>
-                  <span
-                    className="text-[#D2B06B] uppercase mb-[10px]"
-                    style={{
-                      fontFamily: "'Manrope', sans-serif",
-                      fontWeight: 600,
-                      fontSize: '10px',
-                      letterSpacing: '3px',
-                      lineHeight: '15px',
-                    }}
-                  >
-                    {pub.source}
-                  </span>
-                  <h3
-                    className="text-[#E5E2E1] flex-1"
-                    style={{
-                      fontFamily: "'OCR A Std', monospace",
-                      fontSize: '18px',
-                      lineHeight: '24px',
-                    }}
-                  >
-                    {pub.title}
-                  </h3>
-                  <p
-                    className="text-[#E5E2E1]/30 mt-[12px]"
-                    style={{
-                      fontFamily: "'Manrope', sans-serif",
-                      fontSize: '11px',
-                      lineHeight: '16px',
-                    }}
-                  >
-                    {pub.authors}
-                  </p>
-                </div>
-              )}
-            </Reveal>
-          ))}
-        </div>
-
-        {/* View Publications / Show Less */}
-        <Reveal delay={500}>
-          <div className="flex justify-end mt-[32px]">
-            <button
-              onClick={() => setShowAll(!showAll)}
-              className="text-[#cdc6b3] hover:text-[#E8D5A3] transition-colors cursor-pointer"
+        {/* Section header — same style as "What We Do" */}
+        <Reveal className="mb-16">
+          <div className="flex flex-col gap-6">
+            <span
+              className="text-[#D2B06B] uppercase"
               style={{
-                fontFamily: "'Manrope', sans-serif",
-                fontWeight: 300,
-                fontSize: '16px',
-                lineHeight: '24px',
-                background: 'none',
-                border: 'none',
-                padding: '10px',
+                fontFamily: "'Space Mono', monospace",
+                fontSize: '12px',
+                letterSpacing: '3.6px',
+                lineHeight: '16px',
               }}
             >
-              {showAll ? 'Show Less \u2192' : 'View Publications \u2192'}
-            </button>
+              Publications &amp; Media
+            </span>
+            <h2
+              className="text-[#E5E2E1] uppercase text-[26px] md:text-[48px] leading-[30px] md:leading-[48px]"
+              style={{ fontFamily: "'OCR A Std', monospace" }}
+            >
+              Education &amp; <span className="text-[#D2B06B]">Insights.</span>
+            </h2>
           </div>
         </Reveal>
+
+        {/* ── Research & Publications ── */}
+        <div>
+          <Reveal
+            as="span"
+            className="text-[#D2B06B] uppercase block mb-8"
+            style={{
+              fontFamily: "'Manrope', sans-serif",
+              fontWeight: 500,
+              fontSize: '14px',
+              letterSpacing: '5.6px',
+              lineHeight: '20px',
+            }}
+          >
+            Research &amp; Publications
+          </Reveal>
+
+          <div className="grid md:grid-cols-3 gap-[24px]">
+            {visiblePubs.map((pub, idx) => (
+              <InsightCard
+                key={`${pub.title}-${pub.year}`}
+                year={pub.year}
+                source={pub.source}
+                title={pub.title}
+                url={pub.url}
+                authors={pub.authors}
+                delay={idx < 3 ? idx * 150 : (idx - 3) * 60}
+              />
+            ))}
+          </div>
+
+          <Reveal delay={500}>
+            <div className="flex justify-end mt-[32px]">
+              <button
+                onClick={() => setShowAll(!showAll)}
+                className="text-[#cdc6b3] hover:text-[#E8D5A3] transition-colors cursor-pointer"
+                style={{
+                  fontFamily: "'Manrope', sans-serif",
+                  fontWeight: 300,
+                  fontSize: '16px',
+                  lineHeight: '24px',
+                  background: 'none',
+                  border: 'none',
+                  padding: '10px',
+                }}
+              >
+                {showAll ? 'Show Less \u2192' : 'View All \u2192'}
+              </button>
+            </div>
+          </Reveal>
+        </div>
+
+        {/* ── Media ── */}
+        <div style={{ marginTop: '48px' }}>
+          <Reveal
+            as="span"
+            className="text-[#D2B06B] uppercase block mb-8"
+            style={{
+              fontFamily: "'Manrope', sans-serif",
+              fontWeight: 500,
+              fontSize: '14px',
+              letterSpacing: '5.6px',
+              lineHeight: '20px',
+            }}
+          >
+            Media
+          </Reveal>
+
+          <div className="grid md:grid-cols-3 gap-[24px]">
+            {media.map((item, idx) => (
+              <InsightCard
+                key={item.title}
+                year={item.year}
+                source={item.source}
+                title={item.title}
+                url={item.url}
+                cta="Listen"
+                delay={idx * 150}
+              />
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   )
@@ -947,79 +970,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══ PUBLICATIONS ═══ */}
-      <PublicationsSection />
-
-      {/* ═══ MEDIA ═══ */}
-      <section style={{ padding: '96px 18px' }}>
-        <div className="max-w-[1400px] mx-auto">
-          {/* Label */}
-          <Reveal as="span"
-            className="text-[#D2B06B] uppercase block mb-12"
-            style={{
-              fontFamily: "'Space Mono', monospace",
-              fontSize: '12px',
-              letterSpacing: '3.6px',
-              lineHeight: '16px',
-            }}
-          >
-            Media
-          </Reveal>
-
-          {/* 3 cards — text only, external links */}
-          <div className="grid md:grid-cols-3 gap-6">
-            {media.map((item, idx) => (
-              <Reveal key={item.title} delay={idx * 150}>
-              <a
-                href={item.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex flex-col h-full border border-[rgba(210,176,107,0.2)] hover:border-[#D2B06B]/60 transition-colors"
-                style={{ padding: '32px' }}
-              >
-                {/* Tag */}
-                <span
-                  className="text-[#D2B06B] uppercase mb-4"
-                  style={{
-                    fontFamily: "'Space Mono', monospace",
-                    fontSize: '12px',
-                    letterSpacing: '2px',
-                    lineHeight: '16px',
-                  }}
-                >
-                  {item.tag}
-                </span>
-
-                {/* Title */}
-                <h3
-                  className="text-[#E5E2E1] mb-6 flex-1"
-                  style={{
-                    fontFamily: "'OCR A Std', monospace",
-                    fontSize: '22px',
-                    lineHeight: '30px',
-                  }}
-                >
-                  {item.title}
-                </h3>
-
-                {/* Listen */}
-                <span
-                  className="text-[#D2B06B] group-hover:text-[#E8D5A3] uppercase transition-colors"
-                  style={{
-                    fontFamily: "'Space Mono', monospace",
-                    fontSize: '12px',
-                    letterSpacing: '1.2px',
-                    lineHeight: '16px',
-                  }}
-                >
-                  LISTEN →
-                </span>
-              </a>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* ═══ EDUCATION & INSIGHTS ═══ */}
+      <EducationInsightsSection />
 
       {/* ═══ GET IN TOUCH / CONTACT ═══ */}
       <section className="relative overflow-hidden flex flex-col" style={{ padding: '0px 0 110px', minHeight: '1220px' }}>
