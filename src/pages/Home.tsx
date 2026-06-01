@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Reveal from '../components/Reveal'
 import SEO from '../components/SEO'
@@ -355,7 +355,15 @@ function InsightCard({
 
 function EducationInsightsSection() {
   const [showAll, setShowAll] = useState(false)
+  const sectionRef = useRef<HTMLDivElement>(null)
   const visiblePubs = showAll ? publications : publications.slice(0, 3)
+
+  const handleToggle = () => {
+    if (showAll) {
+      sectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+    setShowAll(!showAll)
+  }
 
   return (
     <section style={{ padding: '96px 18px' }}>
@@ -363,28 +371,17 @@ function EducationInsightsSection() {
         {/* Section header — same style as "What We Do" */}
         <Reveal className="mb-16">
           <div className="flex flex-col gap-6">
-            <span
-              className="text-[#D2B06B] uppercase"
-              style={{
-                fontFamily: "'Space Mono', monospace",
-                fontSize: '12px',
-                letterSpacing: '3.6px',
-                lineHeight: '16px',
-              }}
-            >
-              Publications &amp; Media
-            </span>
             <h2
               className="text-[#E5E2E1] uppercase text-[26px] md:text-[48px] leading-[30px] md:leading-[48px]"
               style={{ fontFamily: "'OCR A Std', monospace" }}
             >
-              Education &amp; <span className="text-[#D2B06B]">Insights.</span>
+              Education &amp; <span className="text-[#D2B06B]">Insights</span>
             </h2>
           </div>
         </Reveal>
 
         {/* ── Research & Publications ── */}
-        <div>
+        <div ref={sectionRef}>
           <Reveal
             as="span"
             className="text-[#D2B06B] uppercase block mb-8"
@@ -416,7 +413,7 @@ function EducationInsightsSection() {
           <Reveal delay={500}>
             <div className="flex justify-end mt-[32px]">
               <button
-                onClick={() => setShowAll(!showAll)}
+                onClick={handleToggle}
                 className="text-[#cdc6b3] hover:text-[#E8D5A3] transition-colors cursor-pointer"
                 style={{
                   fontFamily: "'Manrope', sans-serif",

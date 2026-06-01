@@ -105,12 +105,6 @@ export default function Footer() {
           >
             &copy; {new Date().getFullYear()} 50 Elixir. All rights reserved.
           </p>
-          <p
-            className="text-[#8C8577]"
-            style={{ fontFamily: "'Manrope', sans-serif", fontSize: '12px' }}
-          >
-            Designed and Developed by Lantern Sol
-          </p>
         </div>
       </div>
     </footer>
