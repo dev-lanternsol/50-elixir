@@ -127,6 +127,12 @@ body {
   animation: logo-scroll 25s linear infinite;
 }
 
+/* Who-we-work-with active description fade */
+@keyframes wwww-fade {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
 /* Typed cursor blink */
 .typed-cursor {
   animation: typed-blink 0.9s step-end infinite;

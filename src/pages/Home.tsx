@@ -4,6 +4,7 @@ import Reveal from '../components/Reveal'
 import SEO from '../components/SEO'
 import SubscribeForm from '../components/SubscribeForm'
 import TypedText, { type TypedSegment } from '../components/TypedText'
+import WhoWeWorkWith from '../components/WhoWeWorkWith'
 import mountainLines from '../assets/mountain-lines.png'
 import treesIllustration from '../assets/trees-illustration.png'
 import founderPhoto from '../assets/founder.jpg'
@@ -925,6 +926,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* ═══ WHO WE WORK WITH ═══ */}
+      <WhoWeWorkWith />
 
       {/* ═══ BRANDS THAT TRUST US ═══ */}
       <section className="mt-12 md:mt-16 text-center hidden">
